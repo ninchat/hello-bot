@@ -19,6 +19,8 @@ bot.on('queue:closed', (queueId, closed) => {
 
 bot.on('begin', id => {
 	console.log('hello-bot: new customer on channel', id)
+
+	bot.sendMessage(id, {text: 'Hello!'})
 })
 
 bot.on('resume', id => {
