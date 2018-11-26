@@ -1,0 +1,11 @@
+{
+  "name": "hello-bot",
+  "version": "1.0.0",
+  "description": "Example bot for Ninchat",
+  "repository": "ninchat/hello-bot",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "ninchat-nodejs": "ninchat/ninchat-nodejs#bot"
+  },
+  "main": "bot.js"
+}
