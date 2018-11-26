@@ -39,7 +39,11 @@ bot.on('messages', (id, messages) => {
 
 		setTimeout(() => {
 			bot.sendMessage(id, {text: 'You said: ' + text})
-		})
+
+			if (text.indexOf('transfer') >= 0) {
+				bot.transferAudience(id, transferQueueId)
+			}
+		}, 250)
 	})
 })
 
