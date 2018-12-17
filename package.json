@@ -5,7 +5,7 @@
   "repository": "ninchat/hello-bot",
   "license": "BSD-2-Clause",
   "dependencies": {
-    "ninchat-nodejs": "ninchat/ninchat-nodejs#bot"
+    "ninchat-nodejs": "ninchat/ninchat-nodejs"
   },
   "main": "bot.js"
 }
