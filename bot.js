@@ -17,8 +17,15 @@ bot.on('queue:closed', (queueId, closed) => {
 	}
 })
 
-bot.on('begin', id => {
+bot.on('begin', (id, queueId, info) => {
 	console.log('hello-bot: new customer on channel', id)
+
+	if ('audienceMetadata' in info) {
+		let secure = info.audienceMetadata.secure
+		if (secure !== undefined) {
+			console.log('hello-bot: secure metadata:', secure)
+		}
+	}
 
 	bot.sendMessage(id, {text: 'Hello!'})
 })
