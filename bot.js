@@ -1,11 +1,11 @@
 const ninchatBot = require('ninchat-nodejs/ninchat/bot')
 
-const debugMessages = true
-const verboseLogging = true
 const identity = JSON.parse(process.env.BOT_IDENTITY_JSON)
 const transferQueueId = process.env.BOT_TRANSFER_QUEUE_ID
+const messageTypes = ['ninchat.com/text', 'ninchat.com/metadata']
+const verboseLogging = true
 
-const bot = new ninchatBot.Bot({identity, debugMessages, verboseLogging})
+const bot = new ninchatBot.Bot({identity, messageTypes, verboseLogging})
 
 bot.on('queue:closed', (queueId, closed) => {
 	if (queueId === transferQueueId) {
@@ -34,12 +34,8 @@ bot.on('resume', id => {
 	console.log('hello-bot: existing customer on channel', id)
 })
 
-bot.on('messages', (id, messages) => {
-	if (messages.length > 1) {
-		console.log('hello-bot: received', messages.length, 'messages at once')
-	}
-
-	messages.forEach(content => {
+bot.on('messages', (id, textMessages) => {
+	textMessages.forEach(content => {
 		console.log('hello-bot: received message on channel', id)
 
 		const text = content.text
@@ -51,6 +47,20 @@ bot.on('messages', (id, messages) => {
 				bot.transferAudience(id, transferQueueId)
 			}
 		}, 250)
+	})
+})
+
+bot.on('receive', (id, messages) => {
+	messages.forEach(message => {
+		switch (message.messageType) {
+		case 'ninchat.com/text':
+			// Already handled via the 'messages' event.
+			break
+
+		case 'ninchat.com/metadata':
+			console.log('hello-bot: received metadata on channel', id, message.content)
+			break
+		}
 	})
 })
 
