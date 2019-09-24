@@ -67,3 +67,13 @@ bot.on('receive', (id, messages) => {
 bot.on('end', id => {
 	console.log('hello-bot: channel', id, 'is gone')
 })
+
+bot.on('error', event => {
+	console.log('hello-bot: fatal error:', event)
+	process.exit(1) // Expect Docker or other service supervisor to restart the bot.
+})
+
+bot.on('closed', () => {
+	console.log('hello-bot: session closed')
+	process.exit(0)
+})
