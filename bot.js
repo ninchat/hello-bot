@@ -27,6 +27,7 @@ bot.on('begin', (id, queueId, info) => {
 		}
 	}
 
+	bot.setWriting(id, false)
 	bot.sendMessage(id, {text: 'Hello!'})
 })
 
@@ -40,13 +41,16 @@ bot.on('messages', (id, textMessages) => {
 
 		const text = content.text
 
+		bot.setWriting(id, true)
+
 		setTimeout(() => {
+			bot.setWriting(id, false)
 			bot.sendMessage(id, {text: 'You said: ' + text})
 
 			if (text.indexOf('transfer') >= 0) {
 				bot.transferAudience(id, transferQueueId)
 			}
-		}, 250)
+		}, 1500)
 	})
 })
 
