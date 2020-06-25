@@ -35,6 +35,14 @@ bot.on('resume', id => {
 	console.log('hello-bot: existing customer on channel', id)
 })
 
+bot.on('writing', (id, writing) => {
+	if (writing) {
+		console.log('hello-bot: customer started to write on channel', id)
+	} else {
+		console.log('hello-bot: customer stopped writing on channel', id)
+	}
+})
+
 bot.on('messages', (id, textMessages) => {
 	textMessages.forEach(content => {
 		console.log('hello-bot: received message on channel', id)
